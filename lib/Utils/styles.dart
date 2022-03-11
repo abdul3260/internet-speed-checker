@@ -9,6 +9,7 @@ simpleText({
   textColor,
   fontFamily,
   shadow = false,
+  maxlines,
 }) {
   return Text(
     text,
@@ -29,6 +30,7 @@ simpleText({
           : null,
     ),
     textAlign: TextAlign.center,
+    maxLines: maxlines ?? 20,
   );
 }
 
@@ -42,11 +44,12 @@ boxDecoration({buttonColor}) {
   ]);
 }
 
-boxDecorationBorder({Color? borderColor, radius}) {
+boxDecorationBorder({Color? borderColor, radius, backgroundColor}) {
   return BoxDecoration(
+    color: backgroundColor ?? color_darkblue,
     border: Border.all(
       color: borderColor ?? Colors.white38,
     ),
-    borderRadius: BorderRadius.circular(radius??8.r),
+    borderRadius: BorderRadius.circular(radius ?? 8.r),
   );
 }

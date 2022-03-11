@@ -27,7 +27,7 @@ class ControllerSpeedTest extends GetxController {
   List allScreens = [
     ScreenSpeedTest(),
     const ScreenHistory(),
-    const ScreenInfo(),
+    ScreenInfo(),
   ];
 
   startSpeedTest() {
@@ -70,7 +70,7 @@ class ControllerSpeedTest extends GetxController {
     } else if (indexBottomNavBar.value == 1) {
       return "History";
     } else if (indexBottomNavBar.value == 2) {
-      return "Network Info";
+      return "Info";
     } else {
       return null;
     }
