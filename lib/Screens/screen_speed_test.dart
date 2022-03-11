@@ -45,6 +45,7 @@ class ScreenSpeedTest extends StatelessWidget {
   }
 
   Widget recordsSection() {
+    var percent = "%";
     return Container(
       width: Get.width / 1.06,
       child: Row(
@@ -53,7 +54,7 @@ class ScreenSpeedTest extends StatelessWidget {
         children: [
           info(title: "Download", unit: "Mbps", value: "2.3"),
           info(title: "Upload", unit: "Mbps", value: "2.3"),
-          info(title: "Percentage", unit: "Complete", value: "2.3"),
+          info(title: "Percentage", unit: "Complete $percent", value: "2.3"),
         ],
       ),
     );
@@ -73,7 +74,7 @@ class ScreenSpeedTest extends StatelessWidget {
             fontsize: 22.sp,
           ),
           simpleText(
-            text: "$unit %",
+            text: "$unit",
             fontsize: 14.sp,
           ),
         ],

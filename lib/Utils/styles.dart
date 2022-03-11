@@ -41,3 +41,12 @@ boxDecoration({buttonColor}) {
     ),
   ]);
 }
+
+boxDecorationBorder({Color? borderColor, radius}) {
+  return BoxDecoration(
+    border: Border.all(
+      color: borderColor ?? Colors.white38,
+    ),
+    borderRadius: BorderRadius.circular(radius??8.r),
+  );
+}
