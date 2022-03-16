@@ -29,7 +29,6 @@ class ScreenInfo extends StatelessWidget {
     return Scaffold(
       backgroundColor: color_background,
       body: Column(
-           
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

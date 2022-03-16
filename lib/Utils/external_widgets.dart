@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:interspeed/Controllers_GetX/controller_speed_test.dart';
+import 'package:interspeed/Screens/home.dart';
 import 'package:interspeed/Utils/colors.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:interspeed/Utils/styles.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-final controller = Get.put(ControllerSpeedTest());
 customSnackBar({required String title, required String content, IconData? icon}) {
   return Get.snackbar(
     title,
@@ -91,7 +91,74 @@ customDialog({
   ).show();
 }
 
-Widget meterWidget() {
+succesDialog(context, {required uploadSpeed, required downloadSpeed}) {
+  return AwesomeDialog(
+    isDense: true,
+    btnOkColor: color_green,
+    // btnCancelColor: color_red,
+    context: context!,
+    animType: AnimType.SCALE,
+    dialogType: DialogType.SUCCES,
+    body: Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        simpleText(text: "Upload: $uploadSpeed", textColor: color_grey, fontsize: 16.sp),
+        simpleText(text: "Download: $downloadSpeed", textColor: color_grey, fontsize: 16.sp),
+        simpleText(text: "Do You want to save the Test Records?", textColor: color_black, fontsize: 15.sp),
+      ],
+    ),
+    // title: "Results",
+    // desc: 'This is also Ignored',
+    btnOkOnPress: () {},
+    btnCancelOnPress: () {
+      // setting everythinga as default
+      controller.upStream.value = 0;
+      controller.downStream.value = 0;
+      controller.upStreamProgress.value = 0;
+      controller.downStreamProgress.value = 0;
+      controller.percentage.value = 0;
+      controller.isTesting.value = false;
+      controller.meterTitle.value = "Speed";
+    },
+    btnCancelText: "Cancel",
+    btnOkText: "Save",
+  ).show();
+}
+
+Widget meterWidget({double? max, double? min, double? animationDuration, String? title, double? needleValue}) {
+  return SfRadialGauge(
+    // animationDuration: 800,
+    enableLoadingAnimation: true,
+    axes: <RadialAxis>[
+      RadialAxis(
+        minimum: min ?? 0,
+        maximum: max ?? 100,
+        axisLabelStyle: const GaugeTextStyle(
+          color: Colors.white,
+        ),
+        ranges: <GaugeRange>[GaugeRange(startValue: 0.0, endValue: 6.6, color: Colors.red, startWidth: 10, endWidth: 10), GaugeRange(startValue: 6.6, endValue: 13.3, color: Colors.yellow, startWidth: 10, endWidth: 10), GaugeRange(startValue: 13.3, endValue: 20.0, color: Colors.green, startWidth: 10, endWidth: 10)],
+        pointers: <GaugePointer>[
+          NeedlePointer(
+            value: needleValue ?? 50,
+            animationDuration: animationDuration ?? 1000,
+            enableAnimation: true,
+            needleColor: color_white,
+            animationType: AnimationType.bounceOut,
+          )
+        ],
+        annotations: <GaugeAnnotation>[
+          GaugeAnnotation(
+            widget: simpleText(text: title ?? "50 Mbps", fontsize: 14.sp),
+            angle: 90,
+            positionFactor: 1,
+          )
+        ],
+      ),
+    ],
+  );
+}
+
+Widget meterWidgetStatic() {
   return SfRadialGauge(
     animationDuration: 3000,
     enableLoadingAnimation: true,
@@ -190,6 +257,7 @@ Widget simpleButton({
 }
 
 Widget customBottomNavBar() {
+  final controller = Get.put(ControllerSpeedTest());
   return ClipRRect(
     borderRadius: BorderRadius.only(
       topRight: Radius.circular(

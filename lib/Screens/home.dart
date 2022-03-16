@@ -7,6 +7,8 @@ import 'package:interspeed/Utils/colors.dart';
 import 'package:interspeed/Utils/external_widgets.dart';
 import 'package:interspeed/Utils/styles.dart';
 
+final controller = Get.put(ControllerSpeedTest());
+
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
 
@@ -16,7 +18,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final check_internet_connection = CheckInternetConnection();
-  final controller = Get.put(ControllerSpeedTest());
   var subscription;
 
   @override
@@ -41,11 +42,9 @@ class _HomeState extends State<Home> {
             child: const Icon(Icons.menu)),
         backgroundColor: color_background,
         elevation: 0,
-        title: Obx(
-          () => simpleText(
-            text: controller.getAppBarTitle()!,
-            fontweight: FontWeight.bold,
-          ),
+        title: simpleText(
+          text: controller.getAppBarTitle()!,
+          fontweight: FontWeight.bold,
         ),
       ),
       backgroundColor: color_background,

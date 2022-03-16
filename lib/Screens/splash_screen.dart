@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:interspeed/Screens/home.dart';
 import 'package:interspeed/Screens/screen_speed_test.dart';
 import 'package:interspeed/Utils/colors.dart';
 import 'package:interspeed/Utils/external_widgets.dart';
@@ -20,17 +21,13 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: color_background,
       body: Container(
-        padding: EdgeInsets.all(16.h),
+        // padding: EdgeInsets.all(16.h),
         alignment: Alignment.center,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             simpleText(text: ""),
-            SizedBox(
-              width: 250.w,
-              height: 250.h,
-              child: meter(),
-            )
+            meter(),
           ],
         ),
       ),
@@ -48,7 +45,7 @@ class SplashScreen extends StatelessWidget {
       () {
         // check_internet_connection.isInternetEnabled ? Get.off(const ScreenSpeedTest()) : customSnackBar(title: "Sorry", content: "No Internet Connection");
         Get.off(
-          ScreenSpeedTest(),
+          Home(),
         );
       },
     );
@@ -57,7 +54,11 @@ class SplashScreen extends StatelessWidget {
   meter() {
     return Column(
       children: [
-        meterWidget(),
+        SizedBox(
+          width: Get.width / 1.7,
+          height: Get.height / 1.8,
+          child: meterWidgetStatic(),
+        ),
         simpleText(
           text: "Internet",
           fontweight: FontWeight.bold,
